@@ -15,15 +15,10 @@ resource "aws_ecs_service" "service" {
   }
 
   # NB: we usually want to route http traffic to the service.
-  dynamic "load_balancer" {
-    for_each = var.load_balancer_config == null ? [] : [var.load_balancer_config]
-    iterator = each
-
-    content {
-      target_group_arn = each.value.target_group_arn
-      container_name   = each.value.container_name
-      container_port   = each.value.container_port
-    }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.service.arn
+    container_name   = var.name
+    container_port   = var.port
   }
 
   lifecycle {

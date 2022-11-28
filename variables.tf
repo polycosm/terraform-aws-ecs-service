@@ -10,31 +10,17 @@ variable "cpu" {
   type        = number
 }
 
-variable "egress_ports" {
-  description = "The container egress ports"
-  type        = list(number)
-  default     = [0]
-}
-
-variable "ingress_ports" {
-  description = "The container ingress ports"
-  type        = list(number)
-  default     = []
-}
-
 variable "initial_desired_count" {
   description = "The number of task that the service should run initially"
   default     = 0
 }
 
-variable "load_balancer_config" {
-  description = "The load balancer configuration to use, if any"
+variable "load_balancer" {
+  description = "The load balancer configuration to use."
   type = object({
-    target_group_arn = string
-    container_name   = string
-    container_port   = string
+    arn               = string
+    https_listener_id = string
   })
-  default = null
 }
 
 variable "memory" {
@@ -55,9 +41,21 @@ variable "network" {
   })
 }
 
+variable "port" {
+  description = "The container ingress ports"
+  type        = number
+}
+
 variable "task_definition" {
   description = "The ECS task definition to use"
   type = object({
     arn = string
+  })
+}
+
+variable "zone" {
+  description = "The Route53 zone in which to create the service record"
+  type = object({
+    id = string
   })
 }

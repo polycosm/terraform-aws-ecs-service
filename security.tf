@@ -11,30 +11,20 @@ resource "aws_security_group" "service" {
   }
 }
 
-resource "aws_security_group_rule" "ingress" {
-  for_each = toset([
-    for ingress_port in var.ingress_ports : tostring(ingress_port)
-  ])
-
+resource "aws_security_group_rule" "ingress_port" {
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = var.port
+  protocol          = "tcp"
   security_group_id = aws_security_group.service.id
-
-  type        = "ingress"
-  protocol    = "tcp"
-  from_port   = each.key
-  to_port     = each.key
-  cidr_blocks = ["0.0.0.0/0"]
+  to_port           = var.ingress_port
+  type              = "ingress"
 }
 
 resource "aws_security_group_rule" "egress_all" {
-  for_each = toset([
-    for egress_port in var.egress_ports : tostring(egress_port)
-  ])
-
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 0
+  protocol          = "-1"
   security_group_id = aws_security_group.service.id
-
-  type        = "egress"
-  from_port   = each.key
-  to_port     = each.key
-  protocol    = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
+  to_port           = 0
+  type              = "egress"
 }
