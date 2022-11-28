@@ -49,7 +49,7 @@ variable "name" {
 
 variable "network" {
   description = "The network to use"
-  type = objec({
+  type = object({
     private_subnets = list(string)
     vpc_id          = string
   })
