@@ -12,8 +12,6 @@ resource "aws_lb_target_group" "service" {
 
 resource "aws_lb_listener_rule" "service" {
   listener_arn = var.load_balancer.https_listener_id
-  port         = var.port
-  protocol     = "TCP"
 
   action {
     type             = "forward"
