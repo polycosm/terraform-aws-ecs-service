@@ -1,9 +1,18 @@
 resource "aws_lb_target_group" "service" {
-  name        = "${var.name}-private"
-  port        = var.port
-  protocol    = "TCP"
-  target_type = "ip"
-  vpc_id      = var.network.vpc_id
+  name             = "${var.name}-private"
+  port             = var.port
+  protocol         = "HTTP"
+  protocol_version = "HTTP1"
+  target_type      = "ip"
+  vpc_id           = var.network.vpc_id
+
+  health_check {
+    protocol            = "HTTP"
+    path                = "/"
+    interval            = 30
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
+  }
 
   tags = {
     Name = "${var.name}-private"
