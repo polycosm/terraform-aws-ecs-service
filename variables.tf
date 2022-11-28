@@ -10,6 +10,11 @@ variable "cpu" {
   type        = number
 }
 
+variable "hostname" {
+  description = "The hostname on which to advertise the service."
+  type        = string
+}
+
 variable "initial_desired_count" {
   description = "The number of task that the service should run initially"
   default     = 0

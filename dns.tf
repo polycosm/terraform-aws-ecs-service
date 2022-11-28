@@ -2,7 +2,7 @@ resource "aws_route53_record" "service" {
   for_each = var.load_balancer == null || var.zone == null ? [] : [var.zone]
 
   zone_id = each.id
-  name    = "${var.name}.${var.domain_name}"
+  name    = var.hostname
   type    = "A"
 
   alias {
