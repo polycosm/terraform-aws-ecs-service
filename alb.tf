@@ -3,7 +3,7 @@ resource "aws_lb_target_group" "service" {
   port        = var.port
   protocol    = "TCP"
   target_type = "ip"
-  vpc_id      = module.network.vpc_id
+  vpc_id      = var.network.vpc_id
 
   tags = {
     Name = "${var.name}-private"

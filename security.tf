@@ -16,7 +16,7 @@ resource "aws_security_group_rule" "ingress_port" {
   from_port         = var.port
   protocol          = "tcp"
   security_group_id = aws_security_group.service.id
-  to_port           = var.ingress_port
+  to_port           = var.port
   type              = "ingress"
 }
 
