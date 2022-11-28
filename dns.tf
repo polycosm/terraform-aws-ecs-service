@@ -1,9 +1,7 @@
 resource "aws_route53_record" "service" {
-  for_each = var.load_balancer == null || var.zone == null ? [] : [var.zone]
-
-  zone_id = each.id
   name    = var.hostname
   type    = "A"
+  zone_id = var.zone.id
 
   alias {
     evaluate_target_health = false
