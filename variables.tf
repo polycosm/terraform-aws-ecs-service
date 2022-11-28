@@ -24,7 +24,9 @@ variable "load_balancer" {
   description = "The load balancer configuration to use."
   type = object({
     arn               = string
+    dns_name          = string
     https_listener_id = string
+    zone_id           = string
   })
 }
 
